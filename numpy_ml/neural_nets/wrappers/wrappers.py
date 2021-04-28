@@ -201,7 +201,7 @@ class Dropout(WrapperBase):
         scaler, mask = 1.0, np.ones(X.shape).astype(bool)
         if self.trainable:
             scaler = 1.0 / (1.0 - self.p)
-            mask = np.random.rand(*X.shape) >= self.p
+            mask = np.binomial(X.shape[1], (1 - self.p),X.shape[0])
             X = mask * X
 
         if retain_derived:
